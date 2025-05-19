@@ -94,6 +94,14 @@ class Entrada(tk.Entry):
         self.placeholder_color = Colores["texto"]
         self.default_fg = final_config.get("fg", "black")
 
+
+class emergente(tk.Toplevel):
+    def __init__(self,master=None):
+        super().__init__(master)
+        self.organizar()
+    def organizar(self)
+
+
 class DeslizadorVertical(tk.Canvas):
     def __init__(self, master=None, **kwargs):
         valores = {
@@ -103,19 +111,18 @@ class DeslizadorVertical(tk.Canvas):
         final_config = {**valores, **kwargs}
         super().__init__(master, **final_config)
         
-        # Configurar el frame interno
+
         self.frame_interno = tk.Frame(self, bg=Colores["frame_botones"])
         self.create_window((0, 0), window=self.frame_interno, anchor="nw")
-        
-        # Configurar scrollbar directamente en el constructor
+    
         self.scrollbar = tk.Scrollbar(master, orient="vertical", command=self.yview)
         self.configure(yscrollcommand=self.scrollbar.set)
         
-        # Empaquetar el scrollbar directamente
+        
         self.scrollbar.pack(side="right", fill="y")
         self.pack(side="left", fill="both", expand=True)
         
-        # Configurar eventos
+        
         self.frame_interno.bind("<Configure>", lambda e: self.configure(scrollregion=self.bbox("all")))
         self.bind("<Configure>", lambda e: self.itemconfig(1, width=e.width))
         self.bind_all("<MouseWheel>", lambda e: self.yview_scroll(int(-1*(e.delta/120)), "units"))

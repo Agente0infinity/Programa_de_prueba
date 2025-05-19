@@ -14,11 +14,7 @@ def recorrer_rutas():
     print(lista_rutas)
     return lista_rutas
 
-def abrir_archivo(ruta):
 
-    with open(ruta,"r") as libro:
-        for linea in libro:
-            print(linea)
 
 
 
