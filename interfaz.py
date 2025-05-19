@@ -1,7 +1,7 @@
 import tkinter as tk
-from componentes import Boton_grande,Contenedor_fila,Contenedor_Columna,Etiqueta,Entrada,deslizador_vertical
+from componentes import Boton_grande,Contenedor_fila,Contenedor_Columna,Etiqueta,Entrada,DeslizadorVertical
+from logica import recorrer_rutas
 from constantes import Colores
-from logica import Hola
 
 class Interfaz(tk.Tk):
     def __init__(self):
@@ -10,7 +10,10 @@ class Interfaz(tk.Tk):
         self.geometry("720x480")
         self.configure(bg=Colores["fondo"])
         self.instanciar()
-    
+        self.resizable(False,False)
+        
+  
+
     def instanciar(self):
     
         titulo = Etiqueta(self, text="Calculador de IVA")
@@ -21,7 +24,7 @@ class Interfaz(tk.Tk):
         creador_libro.configure(bg=Colores["Frame_beta"])
         creador_libro.pack(expand=True, fill="both", padx=20, pady=20)
     
-        Submit = Boton_grande(creador_libro, "Crear Libro", Hola)
+        Submit = Boton_grande(creador_libro, "Crear Libro", recorrer_rutas)
         Submit.configure(
             height=2,  
             width=20   
@@ -36,7 +39,9 @@ class Interfaz(tk.Tk):
         creador_libro.empaquetar_componente(campo_nombre,None)
         creador_libro.empaquetar_componente(Submit,None)
         creador_libro.empaquetar_componente(columna_libros,"y")
-        dinamico=deslizador_vertical(columna_libros)
+        dinamico=DeslizadorVertical(columna_libros)
         dinamico.configure(bg=Colores["Frame_omega"])
         columna_libros.empaquetar_componente(dinamico,"both")
-        
+        dinamico.generar_botones()
+    
+    

@@ -1,9 +1,10 @@
 from constantes import Colores
 import tkinter as tk
-from tkinter import ttk
+from logica import recorrer_rutas, abrir_archivo
+import os
 
 class Boton(tk.Button):
-    def __init__(self,master=None,texto=None,evento=None,**kwargs):
+    def __init__(self,master=None,**kwargs):
         valores = {
         
         "bg":Colores["frame_botones"],
@@ -35,7 +36,6 @@ class Boton_grande(Boton):
         "command": evento,
         "padx":6,
         "pady":7,
-        "width":200,
         "height":50,
         
         }
@@ -90,36 +90,47 @@ class Entrada(tk.Entry):
         final_config = {**valores, **kwargs}
         super().__init__(master, **final_config)
         
-        
         self.placeholder = placeholder_text
         self.placeholder_color = Colores["texto"]
         self.default_fg = final_config.get("fg", "black")
 
-class deslizador_vertical(tk.Canvas):
-    
+class DeslizadorVertical(tk.Canvas):
     def __init__(self, master=None, **kwargs):
-        super().__init__(master, **kwargs)
+        valores = {
+            "bg": Colores["frame_botones"],
+            "highlightthickness": 0
+        }
+        final_config = {**valores, **kwargs}
+        super().__init__(master, **final_config)
         
-        
-        self.configure(highlightthickness=0) 
-        
-       
-        self.frame_interno = tk.Frame(self)
+        # Configurar el frame interno
+        self.frame_interno = tk.Frame(self, bg=Colores["frame_botones"])
         self.create_window((0, 0), window=self.frame_interno, anchor="nw")
         
-       
+        # Configurar scrollbar directamente en el constructor
         self.scrollbar = tk.Scrollbar(master, orient="vertical", command=self.yview)
         self.configure(yscrollcommand=self.scrollbar.set)
         
+        # Empaquetar el scrollbar directamente
+        self.scrollbar.pack(side="right", fill="y")
+        self.pack(side="left", fill="both", expand=True)
         
-        self.frame_interno.bind("<Configure>", self._actualizar_scroll)
+        # Configurar eventos
+        self.frame_interno.bind("<Configure>", lambda e: self.configure(scrollregion=self.bbox("all")))
+        self.bind("<Configure>", lambda e: self.itemconfig(1, width=e.width))
+        self.bind_all("<MouseWheel>", lambda e: self.yview_scroll(int(-1*(e.delta/120)), "units"))
     
-    def _actualizar_scroll(self):
-       
-        self.configure(scrollregion=self.bbox("all"))
+    def agregar_boton(self, texto, comando):
+        boton = Boton_grande(
+            self.frame_interno, 
+            text=texto, 
+            command=comando,
+            height=5
+        )
+        boton.pack(fill="x", padx=5, pady=2)
+        return boton
     
-    def agregar_boton(self, texto, comando=None):
-
-        boton = tk.Button(self.frame_interno, text=texto, command=comando)
-        boton.pack(fill="x", pady=2)  
-    
+    def generar_botones(self):
+        for ruta in recorrer_rutas():
+            nombre_boton = os.path.basename(ruta)
+            self.agregar_boton(nombre_boton, lambda r=ruta: abrir_archivo(r))
