@@ -95,10 +95,6 @@ class Entrada(tk.Entry):
         self.placeholder_color = Colores["texto"]
         self.default_fg = final_config.get("fg", "black")
 
-
-
-import tkinter as tk
-
 class deslizador_vertical(tk.Canvas):
     
     def __init__(self, master=None, **kwargs):
