@@ -1,6 +1,6 @@
 from constantes import Colores
 import tkinter as tk
-from logica import recorrer_rutas, abrir_archivo
+from logica import recorrer_rutas, calcular_IVA,agregar_boleta
 import os
 
 class Boton(tk.Button):
@@ -96,11 +96,21 @@ class Entrada(tk.Entry):
 
 
 class emergente(tk.Toplevel):
-    def __init__(self,master=None):
+    def __init__(self,master=None,archivo=None):
+        self.archivo=archivo
         super().__init__(master)
-        self.organizar()
-    def organizar(self)
-
+        self.geometry("360x360")
+        self.configure(bg=Colores["fondo"])
+    def organizar(self):
+        Titulo=Etiqueta(self)
+        Titulo.config(text="Operar sobre libro")
+        Titulo.pack(self)
+        principal=Contenedor_fila(self)
+        principal.configure(bg=Colores["Frame_beta"])
+        iva=Boton_estandar(principal,"calcular IVA",lambda archivo:calcular_IVA(archivo))
+        boleta=Boton_estandar(principal,"agregar boleta",lambda archivo:agregar_boleta(archivo))
+        principal.empaquetar_componente(iva,None)
+        principal.empaquetar_componente(boleta,None)
 
 class DeslizadorVertical(tk.Canvas):
     def __init__(self, master=None, **kwargs):
@@ -140,4 +150,4 @@ class DeslizadorVertical(tk.Canvas):
     def generar_botones(self):
         for ruta in recorrer_rutas():
             nombre_boton = os.path.basename(ruta)
-            self.agregar_boton(nombre_boton, lambda r=ruta: abrir_archivo(r))
+            self.agregar_boton(self,"prueba",calcular_IVA)

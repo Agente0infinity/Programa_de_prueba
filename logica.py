@@ -1,9 +1,5 @@
 import os
 
-def Hola():
-
-    print("hola")
-
 def recorrer_rutas():
     lista_rutas=[]
     carpeta="libros"
@@ -13,7 +9,13 @@ def recorrer_rutas():
             lista_rutas.append(ruta_completa)
     print(lista_rutas)
     return lista_rutas
+def calcular_IVA():
 
+    pass
+
+def agregar_boleta():
+
+    pass
 
 
 
