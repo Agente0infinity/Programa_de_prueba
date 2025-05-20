@@ -150,4 +150,4 @@ class DeslizadorVertical(tk.Canvas):
     def generar_botones(self):
         for ruta in recorrer_rutas():
             nombre_boton = os.path.basename(ruta)
-            self.agregar_boton(self,"prueba",calcular_IVA)
+            self.agregar_boton(self,nombre_boton,calcular_IVA)
