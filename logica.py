@@ -19,7 +19,7 @@ def agregar_boleta():
 
 def probar(libro):
     with open(libro,"r") as libro:
-        libro.writelines()
+        libro.readlines()
 
 
 
