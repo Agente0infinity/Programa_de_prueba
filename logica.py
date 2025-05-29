@@ -17,6 +17,11 @@ def agregar_boleta():
 
     pass
 
+def probar(libro):
+    with open(libro,"r") as libro:
+        libro.writelines()
+
+
 
 
 

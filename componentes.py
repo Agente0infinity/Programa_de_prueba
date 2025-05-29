@@ -1,6 +1,6 @@
 from constantes import Colores
 import tkinter as tk
-from logica import recorrer_rutas, calcular_IVA,agregar_boleta
+from logica import recorrer_rutas, calcular_IVA,agregar_boleta,probar
 import os
 
 class Boton(tk.Button):
@@ -150,4 +150,5 @@ class DeslizadorVertical(tk.Canvas):
     def generar_botones(self):
         for ruta in recorrer_rutas():
             nombre_boton = os.path.basename(ruta)
-            self.agregar_boton(self,nombre_boton,calcular_IVA)
+            funcion=lambda ruta: probar(ruta)
+            self.agregar_boton(self,nombre_boton,funcion)
