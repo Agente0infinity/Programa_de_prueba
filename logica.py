@@ -7,7 +7,6 @@ def recorrer_rutas():
         if nombre_archivo.endswith(".txt"):
             ruta_completa = os.path.join(carpeta, nombre_archivo)
             lista_rutas.append(ruta_completa)
-    print(lista_rutas)
     return lista_rutas
 def calcular_IVA():
 
@@ -22,6 +21,8 @@ def probar(libro):
         bacan=libro.readlines()
     
     print(bacan)
+
+    
 
 
 
