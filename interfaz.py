@@ -18,22 +18,13 @@ class Interfaz(tk.Tk):
     
         titulo = Etiqueta(self, text="Calculador de IVA")
         titulo.pack(fill="x", pady=10)
-    
-
         creador_libro = Contenedor_fila(self)
         creador_libro.configure(bg=Colores["Frame_beta"])
         creador_libro.pack(expand=True, fill="both", padx=20, pady=20)
-    
         Submit = Boton_grande(creador_libro, "Crear Libro", recorrer_rutas)
-        Submit.configure(
-            height=2,  
-            width=20   
-        )
+        Submit.configure(height=2, width=20)
         campo_nombre = Entrada(creador_libro, placeholder_text="Ingrese su nombre")
-        campo_nombre.configure(
-            width=30, 
-        )
-
+        campo_nombre.configure(width=30)
         columna_libros=Contenedor_Columna(creador_libro)
         columna_libros.configure(width="240",bg=Colores["Frame_omega"])
         creador_libro.empaquetar_componente(campo_nombre,None)
